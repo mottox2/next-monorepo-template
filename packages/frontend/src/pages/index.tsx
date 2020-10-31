@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import firebase from '../libs/firebase'
 
 export default function Home() {
   return (
@@ -12,6 +13,14 @@ export default function Home() {
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <div onClick={async () => {
+          const provider = new firebase.auth.GoogleAuthProvider()
+          const result = await firebase.auth().signInWithPopup(provider)
+          console.log(result)
+        }}>
+          Login
+        </div>
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
