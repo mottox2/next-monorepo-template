@@ -1,5 +1,5 @@
 {
-  "name": "@next-saas-template/frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
