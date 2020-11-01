@@ -12,16 +12,17 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       const params: Stripe.Checkout.SessionCreateParams = {
-        submit_type: 'pay',
         payment_method_types: ['card'],
         line_items: [
           {
-            name: 'simple payment',
-            amount: 1000,
-            currency: 'jpy',
+            price: 'price_1HieamIvBPafZ4tDjb60r9ou',
             quantity: 1,
           },
         ],
+        mode: 'subscription',
+        subscription_data: {
+          trial_from_plan: true,
+        },
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/`,
       }
