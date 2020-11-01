@@ -13,7 +13,9 @@ const SimplePayment = () => {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        cancelPath: '/simple-payment'
+      }),
     });
     const checkoutSession = await res.json();
     console.log(checkoutSession);
