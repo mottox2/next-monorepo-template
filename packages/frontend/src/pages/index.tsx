@@ -5,11 +5,20 @@ import firebase from '../libs/firebase'
 export default function Home() {
   const [currentUser, setCurrentUser] = useState<firebase.User>()
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((state) => {
+    firebase.auth().onAuthStateChanged(async (state) => {
       if (!state) return setCurrentUser(null)
       setCurrentUser(state)
+      const idToken = await state.getIdToken()
+      console.log(idToken, state)
     })
   }, [])
+
+  const verify = async () => {
+    if (!currentUser) return
+    const idToken = await currentUser.getIdToken(true)
+    console.log(idToken)
+    fetch(`/api/auth?token=${idToken}`)
+  }
 
   return (
     <div className="container">
@@ -33,6 +42,7 @@ export default function Home() {
           }}>
             signOut
           </button>
+          <button onClick={verify}>Verify</button>
         </div>
       </main>
     </div>
